@@ -61,19 +61,4 @@ router.delete('/deleteRecipe/:id', async (req, res) => {
 });
 
 
-router.get('/search', async (req, res) => {
-  const { query } = req.query; 
-  try {
-    const recipes = await Recipe.find({
-      $or: [
-        { name: { $regex: query, $options: 'i' } },
-        { ingredients: { $regex: query, $options: 'i' } },
-      ],
-    });
-    res.send({ status: true, message: recipes });
-  } catch (error) {
-    res.send({ status: false, message: error.message });
-  }
-});
-
 module.exports = router;
